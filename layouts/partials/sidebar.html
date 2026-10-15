@@ -1,0 +1,38 @@
+{{- $current := . -}}
+{{- $categories := site.Taxonomies.categories.Alphabetical -}}
+{{- $about := site.GetPage "aboutme" -}}
+<aside class="site-sidebar" aria-label="Section navigation">
+    <div class="sidebar-inner">
+        <nav class="sidebar-nav">
+            <a class="sidebar-link{{ if .IsHome }} is-active{{ end }}" href="{{ "" | relLangURL }}">Home</a>
+            {{- with $about }}
+            <a class="sidebar-link{{ if eq .RelPermalink $current.RelPermalink }} is-active{{ end }}" href="{{ .RelPermalink }}">About me</a>
+            {{- end }}
+
+            {{- range $categories }}
+            {{- $category := .Page -}}
+            {{- $isOpen := false -}}
+            {{- range .Pages }}
+                {{- if eq .RelPermalink $current.RelPermalink }}
+                    {{- $isOpen = true -}}
+                {{- end -}}
+            {{- end }}
+            <details class="sidebar-section" {{ if $isOpen }}open{{ end }}>
+                <summary>
+                    <span>{{ $category.LinkTitle }}</span>
+                    <svg class="sidebar-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </summary>
+                <div class="sidebar-section-links">
+                    {{- range .Pages.ByDate.Reverse }}
+                    <a class="sidebar-child-link{{ if eq .RelPermalink $current.RelPermalink }} is-active{{ end }}" href="{{ .RelPermalink }}">
+                        {{ .LinkTitle }}
+                    </a>
+                    {{- end }}
+                </div>
+            </details>
+            {{- end }}
+        </nav>
+    </div>
+</aside>

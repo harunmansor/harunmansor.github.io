@@ -4,4 +4,4 @@ draft = false
 title = 'Aboutme'
 +++
 
-My name is Harun, a cybersecurity enthusiast from Malaysia, currently working as a penetration tester.
+My name is Harun, a cybersecurity enthusiast from Malaysia, currently working in the offensive space.
